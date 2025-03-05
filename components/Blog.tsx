@@ -1,6 +1,6 @@
 const Blog = () => {
   return (
-    <div className="relative z-30 border border-red-500 max-w-lg w-full flex flex-row items-center p-4.5 rounded-md shadow-2xl">
+    <div className="relative z-30 max-w-lg w-full flex flex-row items-center p-4.5 rounded-md shadow-2xl">
       <div className="flex flex-col items-center gap-4 w-full">
         <div className="w-full">
           <h2 className="text-xl font-semibold">Blog posts</h2>
