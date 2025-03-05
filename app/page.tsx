@@ -20,7 +20,7 @@ export default function Home() {
         <Header />
         <Hero />
         <div className="bg-black opacity-[65%] w-full">
-          <div className="w-full max-w-5xl mx-auto py-3.5 flex flex-row gap-4 items-start justify-between">
+          <div className="w-full max-w-5xl mx-auto py-3.5 flex flex-col md:flex-row gap-4 items-start justify-between">
             <Projects />
             <Blog />
           </div>
