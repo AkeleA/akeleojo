@@ -30,21 +30,14 @@ const Blog = () => {
           </h2>
           <p className="text-blue-500 italic text-sm">Sometimes I write</p>
         </div>
-        <div
-          className="flex flex-row items-center justify-between w-full p-4 rounded-md my-2 
-                     transition-all duration-300 
-                     hover:border hover:border-gray-700 
-                     hover:bg-white/10 
-                     cursor-pointer 
-                     group"
-        >
+        <div className="w-full">
           {blogPosts.map((post, index) => (
             <a
               key={index}
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-row items-center justify-between"
+              className="flex flex-row p-5 w-full items-center justify-between border rounded-md"
             >
               <div className="flex flex-col gap-5">
                 <h3 className="font-bold text-2xl text-white group-hover:text-blue-400 transition-colors">
