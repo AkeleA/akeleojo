@@ -37,7 +37,7 @@ const Blog = () => {
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-row p-5 w-full items-center justify-between border rounded-md"
+              className="flex flex-row p-4.5 w-full items-center justify-between border rounded-md"
             >
               <div className="flex flex-col gap-5">
                 <h3 className="font-bold text-2xl text-white group-hover:text-blue-400 transition-colors">
