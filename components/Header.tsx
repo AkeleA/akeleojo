@@ -1,29 +1,47 @@
 "use client";
-import Link from "next/link";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { CgFileDocument } from "react-icons/cg";
-import { MdArrowOutward, MdMenu } from "react-icons/md";
-import { useState } from "react";
+import { MdArrowOutward, MdMenu, MdClose } from "react-icons/md";
+import { useState, useEffect } from "react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
+
   return (
-    <div className="relative z-30 w-full flex justify-center p-4">
+    <div className="relative z-20 w-full flex justify-center p-4">
       <div className="max-w-5xl w-full flex justify-between items-center px-4 py-2 rounded-full">
         {/* Center - Chat button */}
         <div className="rounded-full flex gap-2 items-center px-3 py-0.5">
           <h1 className="text-white font-medium transition-transform hover:scale-105">
             akeleojo.
           </h1>
-          <button
-            className="bg-none text-white text-sm px-2.5 py-0.5 rounded-full 
+          <a
+            href="mailto:achorisaac@gmail.com?subject=Let's%20Chat"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button
+              className="bg-none text-white text-sm px-2.5 py-0.5 rounded-full 
                        border border-gray-500 flex items-center gap-1
                        hover:bg-gray-800 transition-all duration-300"
-          >
-            Let&apos;s Chat{" "}
-            <MdArrowOutward className="hover:rotate-45 transition-transform" />
-          </button>
+            >
+              Let&apos;s Chat{" "}
+              <MdArrowOutward className="hover:rotate-45 transition-transform" />
+            </button>
+          </a>
         </div>
 
         {/* Social Links - Desktop */}
@@ -35,33 +53,39 @@ const Header = () => {
             },
             { Icon: FaGithub, href: "https://github.com/AkeleA" },
             { Icon: FaTwitter, href: "https://twitter.com" },
-            { Icon: CgFileDocument, href: "/cv", text: "CV" },
-          ].map(({ Icon, href, text }) => (
-            <Link
+            {
+              Icon: CgFileDocument,
+              href: "/Akeleojo_Achor_CV.pdf",
+              download: true,
+              text: "CV",
+            },
+          ].map(({ Icon, href, text, download }) => (
+            <a
               key={href}
               href={href}
+              target={href.startsWith("http") ? "_blank" : "_self"}
+              rel={href.startsWith("http") ? "noopener noreferrer" : ""}
+              download={download}
               className="text-gray-400 hover:text-white hover:scale-110 transition-all flex items-center gap-1"
             >
               <Icon />
               {text && <span className="text-sm">{text}</span>}
-            </Link>
+            </a>
           ))}
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="md:hidden">
+        <div className="md:hidden relative z-30">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-white hover:text-gray-300 transition-colors"
           >
-            <MdMenu size={24} />
+            {mobileMenuOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
           </button>
-        </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="absolute top-full right-0 mt-2 mr-4 bg-black/90 rounded-lg shadow-lg md:hidden">
-            <div className="flex flex-col space-y-2 p-4">
+          {/* Mobile Dropdown Menu (Static, No Animations) */}
+          {mobileMenuOpen && (
+            <div className="absolute top-8 right-0 py-4 bg-black/5 rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4">
               {[
                 {
                   Icon: FaLinkedin,
@@ -69,20 +93,26 @@ const Header = () => {
                 },
                 { Icon: FaGithub, href: "https://github.com/AkeleA" },
                 { Icon: FaTwitter, href: "https://twitter.com" },
-                { Icon: CgFileDocument, href: "/cv", text: "CV" },
-              ].map(({ Icon, href, text }) => (
-                <Link
+                {
+                  Icon: CgFileDocument,
+                  href: "/Akeleojo_Achor_CV.pdf",
+                  download: true,
+                },
+              ].map(({ Icon, href, download }) => (
+                <a
                   key={href}
                   href={href}
-                  className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                  target={href.startsWith("http") ? "_blank" : "_self"}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : ""}
+                  download={download}
+                  className="text-gray-400 hover:text-white transition-all"
                 >
-                  <Icon />
-                  {text && <span>{text}</span>}
-                </Link>
+                  <Icon size={24} />
+                </a>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

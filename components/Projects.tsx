@@ -18,7 +18,7 @@ const Projects = () => {
     <div className="relative max-w-lg w-full z-30 flex flex-col gap-4 items-start p-4.5 rounded-md shadow-2xl">
       <div className="font-outfit">
         <h2 className="text-2xl font-semibold">Projects</h2>
-        <p className="text-blue-500 italic text-sm">
+        <p className="text-[#CCCCFF] italic text-sm">
           A few things I&apos;ve tried my hand at
         </p>
       </div>
@@ -33,7 +33,7 @@ const Projects = () => {
           >
             <h3 className="font-bold text-xl">{project.name}</h3>
             <p className="text-white font-normal">{project.desc}</p>
-            <p className="text-blue-950 font-semibold">{project.Role}</p>
+            <p className="text-[#40B5F0] font-semibold">{project.Role}</p>
           </a>
         ))}
       </div>
