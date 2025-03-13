@@ -15,7 +15,7 @@ const blogPosts: BlogPost[] = [
   {
     title:
       "Exploring Next.js: The Growing Choice for Developers and Vercel’s Remarkable Contribution",
-    date: "June 29th, 2025",
+    date: "June 29th, 2023",
     url: "https://medium.com/@aakele/exploring-next-js-the-growing-choice-for-developers-and-vercels-remarkable-contribution-493b0fce5171",
   },
 ];
