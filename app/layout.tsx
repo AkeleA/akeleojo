@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
@@ -19,8 +20,17 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "akeleojo",
-  description: "akeleojo's portfolio'",
+  title: "Akeleojo Achor – Software Engineer & Frontend Dev",
+  description:
+    "Portfolio of Akeleojo Achor: Node.js, Next.js, Typescript developer.",
+  openGraph: {
+    title: "Akeleojo Achor – Frontend Developer",
+    description: "Check out my portfolio and projects",
+    url: "https://akeleojo.dev",
+    siteName: "Akeleojo Achor",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
