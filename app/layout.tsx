@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import React from "react";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import ParticleBackground from "@/components/ParticleBackground";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,9 +42,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${outfit.variable} antialiased`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`bg-background text-foreground ${inter.variable} ${outfit.variable} antialiased transition-colors duration-300`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <div className="min-h-screen">
+            <ParticleBackground />
+            <Header />
+            <main className="relative z-10 scroll-smooth bg-background opacity-80">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

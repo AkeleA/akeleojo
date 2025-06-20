@@ -3,9 +3,12 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { CgFileDocument } from "react-icons/cg";
 import { MdArrowOutward, MdMenu, MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import { SunIcon, MoonIcon } from "lucide-react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -21,11 +24,11 @@ const Header = () => {
   }, [mobileMenuOpen]);
 
   return (
-    <div className="sticky z-20 w-full flex justify-center p-4">
+    <div className="sticky top-0 z-50 w-full flex justify-center p-4 backdrop-blur-sm header-bg">
       <div className="max-w-5xl w-full flex justify-between items-center px-4 py-2 rounded-full">
         {/* Center - Chat button */}
         <div className="rounded-full flex gap-2 items-center px-3 py-0.5">
-          <h1 className="text-white font-medium transition-transform hover:scale-105">
+          <h1 className="text-foreground font-medium transition-transform hover:scale-105">
             akeleojo.
           </h1>
           <a
@@ -33,11 +36,7 @@ const Header = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button
-              className="bg-none text-white text-sm px-2.5 py-0.5 rounded-full 
-                       border border-gray-500 flex items-center gap-1
-                       hover:bg-gray-800 transition-all duration-300"
-            >
+            <button className="btn-outline text-sm px-2.5 py-0.5 rounded-full flex items-center gap-1 hover:bg-muted transition-all duration-300">
               Let&apos;s Chat{" "}
               <MdArrowOutward className="hover:rotate-45 transition-transform" />
             </button>
@@ -66,26 +65,34 @@ const Header = () => {
               target={href.startsWith("http") ? "_blank" : "_self"}
               rel={href.startsWith("http") ? "noopener noreferrer" : ""}
               download={download}
-              className="text-gray-400 hover:text-white hover:scale-110 transition-all flex items-center gap-1"
+              className="text-accent-light hover:text-accent hover:scale-110 transition-all flex items-center gap-1"
             >
               <Icon />
               {text && <span className="text-sm">{text}</span>}
             </a>
           ))}
+
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className="text-accent-light hover:text-accent transition-all hover:scale-110"
+            aria-label="Toggle Theme"
+          >
+            {theme === "light" ? <MoonIcon size={20} /> : <SunIcon size={20} />}
+          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden relative z-30">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-white hover:text-gray-300 transition-colors"
+            className="text-foreground hover:text-muted transition-colors"
           >
             {mobileMenuOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
           </button>
 
-          {/* Mobile Dropdown Menu (Static, No Animations) */}
+          {/* Mobile Dropdown Menu */}
           {mobileMenuOpen && (
-            <div className="absolute top-8 right-0 py-4 bg-black/5 rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4">
+            <div className="absolute top-8 right-0 py-4 bg-card border border-muted rounded-lg shadow-lg flex flex-col items-center justify-center space-y-4">
               {[
                 {
                   Icon: FaLinkedin,
@@ -105,11 +112,22 @@ const Header = () => {
                   target={href.startsWith("http") ? "_blank" : "_self"}
                   rel={href.startsWith("http") ? "noopener noreferrer" : ""}
                   download={download}
-                  className="text-gray-400 hover:text-white transition-all"
+                  className="text-accent-light hover:text-accent transition-all"
                 >
                   <Icon size={24} />
                 </a>
               ))}
+              <button
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                className="text-accent-light hover:text-accent transition-all hover:scale-110"
+                aria-label="Toggle Theme"
+              >
+                {theme === "light" ? (
+                  <MoonIcon size={20} />
+                ) : (
+                  <SunIcon size={20} />
+                )}
+              </button>
             </div>
           )}
         </div>
