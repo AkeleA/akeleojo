@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { CgFileDocument } from "react-icons/cg";
 import { MdArrowOutward, MdMenu, MdClose } from "react-icons/md";
 import { useTheme } from "next-themes";
@@ -50,7 +50,10 @@ const Header = () => {
               href: "https://www.linkedin.com/in/akeleojo-achor-1a8557172/",
             },
             { Icon: FaGithub, href: "https://github.com/AkeleA" },
-            { Icon: FaTwitter, href: "https://twitter.com" },
+            {
+              Icon: FaInstagram,
+              href: "https://www.instagram.com/e.ne.ke.le/",
+            },
             {
               Icon: CgFileDocument,
               href: "/Akeleojo_Achor_CV.pdf",
