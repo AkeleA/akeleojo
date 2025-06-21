@@ -100,7 +100,10 @@ const Header = () => {
                   href: "https://www.linkedin.com/in/akeleojo-achor-1a8557172/",
                 },
                 { Icon: FaGithub, href: "https://github.com/AkeleA" },
-                { Icon: FaTwitter, href: "https://twitter.com" },
+                {
+                  Icon: FaInstagram,
+                  href: "https://www.instagram.com/e.ne.ke.le/",
+                },
                 {
                   Icon: CgFileDocument,
                   href: "/Akeleojo_Achor_CV.pdf",
