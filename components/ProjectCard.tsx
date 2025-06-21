@@ -52,7 +52,7 @@ export default function ProjectCard({
       <div className="flex flex-col w-full p-6 h-full space-y-3">
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="text-sm text-accent-light flex-grow">{description}</p>
-        <div className="flex flex-col items-start justify-start space-x-2 space-y-2">
+        <div className="flex flex-row items-start justify-start space-x-2 space-y-2">
           {badges.map((b) => (
             <Image
               key={b.label}
@@ -65,7 +65,7 @@ export default function ProjectCard({
                 b.logo.name
               )}&logoColor=white`}
               alt={b.label}
-              height={40}
+              height={60}
               width={80}
               unoptimized={true}
               className="transition-transform duration-200 hover:scale-110 object-contain"

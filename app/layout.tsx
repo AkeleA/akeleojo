@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import ParticleBackground from "@/components/ParticleBackground";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -55,6 +56,7 @@ export default function RootLayout({
           <div className="min-h-screen">
             <ParticleBackground />
             <Header />
+            <Toaster richColors position="top-right" />
             <main className="relative z-10 scroll-smooth bg-background opacity-80">
               {children}
             </main>

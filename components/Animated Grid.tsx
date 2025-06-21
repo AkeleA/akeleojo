@@ -25,7 +25,7 @@ export function AnimatedGrid({ children }: { children: React.ReactNode }) {
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="flex flex-col w-full p-3 rounded-md h-full"
+      className="flex flex-col gap-2.5 w-full rounded-md h-full"
     >
       {React.Children.map(children, (child) => (
         <motion.div variants={itemVariants}>{child}</motion.div>

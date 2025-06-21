@@ -30,10 +30,10 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="w-full px-4 py-16 bg-background text-foreground"
+      className="w-full px-4 py-4 space-y-4 bg-background text-foreground"
     >
-      <h2 className="text-3xl font-semibold mb-10 text-left">Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <h2 className="text-3xl font-semibold text-left">Projects</h2>
+      <div className="flex flex-col gap-4 w-full mx-auto">
         {projects.map((p) => (
           <ProjectCard
             key={p.name}
