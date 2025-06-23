@@ -24,7 +24,7 @@ export default function Home() {
           ctaLink="https://calendly.com/achorisaac/30min"
         />
         <div className="w-full">
-          <div className="w-full max-w-5xl mx-auto py-3.5 flex flex-col md:flex-row gap-4 items-start justify-between">
+          <div className="w-full max-w-6xl mx-auto py-3.5 flex flex-col md:flex-row gap-4 items-start justify-between">
             <Projects />
             <Blog />
           </div>

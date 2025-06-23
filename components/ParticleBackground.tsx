@@ -17,7 +17,7 @@ export default function ParticleBackground() {
     });
   }, []);
 
-  const color = resolvedTheme === "dark" ? "#60a5fa" : "#3b82f6";
+  const color = resolvedTheme === "dark" ? "#f1f5f9" : "#1e239b";
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
     console.log(container);
@@ -27,12 +27,12 @@ export default function ParticleBackground() {
     () => ({
       fullScreen: { enable: true, zIndex: -1 },
       particles: {
-        number: { value: 120 },
+        number: { value: 129 },
         color: { value: color },
-        size: { value: 3 },
+        size: { value: 4 },
         move: {
           enable: true,
-          speed: 1.8,
+          speed: 2.5,
           direction: "none",
           outModes: {
             default: "out",
@@ -41,7 +41,7 @@ export default function ParticleBackground() {
         links: {
           enable: true,
           distance: 150,
-          opacity: 0.3,
+          opacity: 0.5,
           color: color,
           width: 1,
         },

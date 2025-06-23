@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { CgFileDocument } from "react-icons/cg";
 import { MdArrowOutward, MdMenu, MdClose } from "react-icons/md";
@@ -9,11 +9,24 @@ import { SunIcon, MoonIcon } from "lucide-react";
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  // Disable body scroll on mobile menu open
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
     return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "unset";
     };
   }, [mobileMenuOpen]);
@@ -23,13 +36,11 @@ const Header = () => {
       <div className="max-w-5xl w-full flex justify-between items-center px-4 py-2 rounded-full">
         {/* Left: Logo + CTA */}
         <div className="flex gap-3 items-center">
-          <div className="flex items-center gap-[1px] select-none">
-            <div className="w-1.5 h-1.5 bg-accent rounded-full" />
-            <span className="text-xl font-extrabold tracking-tight font-outfit text-foreground leading-none">
-              <span className="text-accent-light">A</span>
-              <span className="text-accent -ml-0.5">K</span>
+          <div className="relative flex items-center gap-1 select-none">
+            <div className="absolute -top-1 left-1/4 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] z-10" />
+            <span className="text-lg font-extrabold tracking-tight font-outfit leading-none bg-gradient-to-r from-[var(--accent-light)] to-[var(--accent)] bg-clip-text text-transparent">
+              akeleojo
             </span>
-            <div className="w-2 h-2 border-t-2 border-accent rotate-[37deg]" />
           </div>
           <a href="#contact">
             <button
@@ -93,7 +104,10 @@ const Header = () => {
           </button>
 
           {mobileMenuOpen && (
-            <div className="absolute top-8 right-0 py-4 px-5 bg-card border border-muted rounded-lg shadow-lg flex flex-col items-center space-y-4">
+            <div
+              ref={menuRef}
+              className="absolute top-8 right-0 py-4 px-5 bg-card border border-muted rounded-lg shadow-lg flex flex-col items-center space-y-4"
+            >
               {[
                 {
                   Icon: FaLinkedin,
