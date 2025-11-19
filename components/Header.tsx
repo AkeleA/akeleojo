@@ -67,8 +67,8 @@ const Header = () => {
             },
             {
               Icon: CgFileDocument,
-              href: "/Akeleojo_Achor_CV.pdf",
-              download: true,
+              href: "/Akeleojo_Achor_Resume.pdf",
+              download: "Akeleojo_Achor_Resume.pdf",
               text: "CV",
             },
           ].map(({ Icon, href, text, download }) => (
@@ -120,8 +120,8 @@ const Header = () => {
                 },
                 {
                   Icon: CgFileDocument,
-                  href: "/Akeleojo_Achor_CV.pdf",
-                  download: true,
+                  href: "/Akeleojo_Achor_Resume.pdf",
+                  download: "Akeleojo_Achor_Resume.pdf",
                 },
               ].map(({ Icon, href, download }) => (
                 <a

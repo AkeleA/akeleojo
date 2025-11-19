@@ -24,6 +24,30 @@ const projects = [
       { label: "Tailwind CSS", logo: { name: "tailwindcss", color: "38B2AC" } },
     ],
   },
+  {
+    name: "Hermes",
+    desc: "Speedy URL Shortener",
+    link: "https://theseus-iota.vercel.app/",
+    Role: "Fullstack Developer",
+    badges: [
+      { label: "Next.js", logo: { name: "nextdotjs", color: "000000" } },
+      { label: "Node.js", logo: { name: "nodedotjs", color: "339933" } },
+      { label: "TypeScript", logo: { name: "typescript", color: "3178C6" } },
+      { label: "Tailwind CSS", logo: { name: "tailwindcss", color: "38B2AC" } },
+    ],
+  },
+  // {
+  //   name: "Echocheck",
+  //   desc: "Shop for intricate jewels",
+  //   link: "https://onyiisi.com",
+  //   Role: "Fullstack Developer",
+  //   badges: [
+  //     { label: "Next.js", logo: { name: "nextdotjs", color: "000000" } },
+  //     { label: "Node.js", logo: { name: "nodedotjs", color: "339933" } },
+  //     { label: "TypeScript", logo: { name: "typescript", color: "3178C6" } },
+  //     { label: "Tailwind CSS", logo: { name: "tailwindcss", color: "38B2AC" } },
+  //   ],
+  // },
 ];
 
 const Projects = () => {

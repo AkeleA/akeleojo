@@ -1,4 +1,3 @@
-//import { AnimatedGrid } from "./Animated Grid";
 import BlogCard from "@/components/BlogCard";
 
 const posts = [
@@ -7,6 +6,12 @@ const posts = [
       "Exploring Next.js: The Growing Choice for Developers and Vercel’s Remarkable Contribution",
     excerpt: "In the ever-evolving world of web development, Next.js stands...",
     link: "https://medium.com/@aakele/exploring-next-js-the-growing-choice-for-developers-and-vercels-remarkable-contribution-493b0fce5171",
+  },
+  {
+    title:
+      "The Modern Developer’s Guide to i18n: Why next-intl is Changing Everything",
+    excerpt: "What do McDonald’s, Netflix, Google, Microsoft...",
+    link: "https://medium.com/@aakele/the-modern-developers-guide-to-i18n-why-next-intl-is-changing-everything-7a459d85f6e0",
   },
 ];
 
