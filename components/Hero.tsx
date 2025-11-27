@@ -44,7 +44,7 @@ const Hero = ({
 
   return (
     <div className="relative min-h-screen w-full flex flex-row items-center py-16 md:py-28">
-      <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+      <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between px-4">
         {/* Left */}
         <div className="flex flex-col justify-start items-center md:items-start font-outfit w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0">
           <motion.span

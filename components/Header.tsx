@@ -8,8 +8,14 @@ import { SunIcon, MoonIcon } from "lucide-react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false); // Add this
   const { theme, setTheme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Add this useEffect
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -30,6 +36,10 @@ const Header = () => {
       document.body.style.overflow = "unset";
     };
   }, [mobileMenuOpen]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="sticky top-0 z-50 w-full flex justify-center p-4 backdrop-blur-sm header-bg">

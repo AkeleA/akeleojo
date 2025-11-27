@@ -7,7 +7,12 @@ import { useTheme } from "next-themes";
 
 export default function ParticleBackground() {
   const [init, setInit] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -71,7 +76,7 @@ export default function ParticleBackground() {
     [color]
   );
 
-  if (init) {
+  if (init && mounted) {
     return (
       <Particles
         id="tsparticles"
