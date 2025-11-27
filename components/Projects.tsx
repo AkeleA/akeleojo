@@ -25,7 +25,7 @@ const projects = [
     ],
   },
   {
-    name: "Hermes",
+    name: "Theseus",
     desc: "Speedy URL Shortener",
     link: "https://theseus-iota.vercel.app/",
     Role: "Fullstack Developer",

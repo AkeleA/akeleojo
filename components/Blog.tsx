@@ -13,6 +13,12 @@ const posts = [
     excerpt: "What do McDonald’s, Netflix, Google, Microsoft...",
     link: "https://medium.com/@aakele/the-modern-developers-guide-to-i18n-why-next-intl-is-changing-everything-7a459d85f6e0",
   },
+  {
+    title:
+      "Building Theseus: A Modern, Edge-Powered URL Shortener with.........",
+    excerpt: "URL shorteners seem simple at first, but.....",
+    link: "https://medium.com/@aakele/building-theseus-a-modern-edge-powered-url-shortener-with-next-js-16-prisma-upstash-redis-411693ca2c06",
+  },
 ];
 
 const Blog = () => {
