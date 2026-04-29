@@ -54,16 +54,17 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="w-full px-4 py-4 space-y-4 bg-background text-foreground"
+      className="w-full py-4 space-y-4 text-foreground"
     >
-      <h2 className="text-3xl font-semibold text-left">Projects</h2>
-      <div className="flex flex-col gap-4 w-full mx-auto">
+      <h2 className="text-xl font-semibold text-left">Projects</h2>
+      <div className="w-full mx-auto">
         {projects.map((p) => (
           <ProjectCard
             key={p.name}
             title={p.name}
             description={p.desc}
             link={p.link}
+            role={p.Role}
             badges={p.badges}
           />
         ))}

@@ -25,7 +25,7 @@ const Blog = () => {
   return (
     <section
       id="blog"
-      className="w-full px-4 py-4 space-y-4 bg-background text-foreground"
+      className="w-full px-4 py-4 space-y-4 text-foreground"
     >
       <h2 className="text-3xl font-semibold text-left">Blog</h2>
       {posts.map((p) => (

@@ -57,7 +57,7 @@ export default function RootLayout({
             <ParticleBackground />
             <Header />
             <Toaster richColors position="top-right" />
-            <main className="relative z-10 scroll-smooth bg-background opacity-80">
+            <main className="relative z-10 scroll-smooth">
               {children}
             </main>
           </div>

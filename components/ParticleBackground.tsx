@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import type { Container, ISourceOptions } from "@tsparticles/engine";
+import type { ISourceOptions } from "@tsparticles/engine";
 import { useTheme } from "next-themes";
 
 export default function ParticleBackground() {
@@ -22,22 +22,24 @@ export default function ParticleBackground() {
     });
   }, []);
 
-  const color = resolvedTheme === "dark" ? "#f1f5f9" : "#1e239b";
-
-  const particlesLoaded = async (container?: Container): Promise<void> => {
-    console.log(container);
-  };
+  const color = resolvedTheme === "dark" ? "#b7c7d7" : "#74869a";
 
   const options: ISourceOptions = useMemo(
     () => ({
-      fullScreen: { enable: true, zIndex: -1 },
+      fullScreen: { enable: true, zIndex: 0 },
       particles: {
-        number: { value: 129 },
+        number: {
+          value: 95,
+          density: {
+            enable: true,
+            area: 900,
+          },
+        },
         color: { value: color },
-        size: { value: 4 },
+        size: { value: { min: 1, max: 2.6 } },
         move: {
           enable: true,
-          speed: 2.5,
+          speed: 1.05,
           direction: "none",
           outModes: {
             default: "out",
@@ -45,13 +47,13 @@ export default function ParticleBackground() {
         },
         links: {
           enable: true,
-          distance: 150,
-          opacity: 0.5,
+          distance: 135,
+          opacity: 0.13,
           color: color,
           width: 1,
         },
         opacity: {
-          value: 0.5,
+          value: { min: 0.12, max: 0.34 },
         },
         shape: {
           type: "circle",
@@ -66,7 +68,7 @@ export default function ParticleBackground() {
         },
         modes: {
           repulse: {
-            distance: 100,
+            distance: 115,
             duration: 0.4,
           },
         },
@@ -77,13 +79,7 @@ export default function ParticleBackground() {
   );
 
   if (init && mounted) {
-    return (
-      <Particles
-        id="tsparticles"
-        particlesLoaded={particlesLoaded}
-        options={options}
-      />
-    );
+    return <Particles id="tsparticles" options={options} />;
   }
 
   return <></>;

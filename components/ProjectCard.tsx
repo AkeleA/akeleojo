@@ -1,7 +1,6 @@
 "use client";
-import { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+
+import { ArrowUpRight } from "lucide-react";
 
 interface Badge {
   label: string;
@@ -15,6 +14,7 @@ interface Props {
   title: string;
   description: string;
   link: string;
+  role?: string;
   badges: Badge[];
 }
 
@@ -22,60 +22,44 @@ export default function ProjectCard({
   title,
   description,
   link,
+  role,
   badges = [],
 }: Props) {
-  const tiltRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    if (tiltRef.current) {
-      import("vanilla-tilt").then(({ default: VanillaTilt }) => {
-        VanillaTilt.init(tiltRef.current!, {
-          max: 8,
-          speed: 400,
-          glare: true,
-          "max-glare": 0.2,
-        });
-      });
-    }
-  }, []);
-
   return (
-    <motion.a
-      ref={tiltRef}
+    <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block rounded-xl overflow-hidden bg-card text-foreground border border-border shadow-md hover:shadow-lg transition-shadow"
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 250, damping: 20 }}
+      className="group block border-t border-border py-5 text-foreground transition last:border-b hover:border-accent"
     >
-      <div className="flex flex-col w-full p-6 h-full space-y-3">
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-sm text-accent-light flex-grow">{description}</p>
-        <div className="flex flex-row items-start justify-start space-x-2 space-y-2">
-          {badges.map((b) => (
-            <Image
-              key={b.label}
-              src={`https://img.shields.io/badge/-${encodeURIComponent(
-                b.label
-              )}-${b.logo.color.replace(
-                "#",
-                ""
-              )}?style=flat-square&logo=${encodeURIComponent(
-                b.logo.name
-              )}&logoColor=white`}
-              alt={b.label}
-              height={60}
-              width={80}
-              unoptimized={true}
-              className="transition-transform duration-200 hover:scale-110 object-contain"
-            />
-          ))}
+      <div className="flex items-start justify-between gap-5">
+        <div className="min-w-0 space-y-2">
+          <div>
+            <h3 className="text-base font-semibold text-foreground">
+              {title}
+            </h3>
+            <p className="mt-1 text-sm leading-6 text-foreground/68">
+              {role ? `${role} · ${description}` : description}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {badges.map((badge) => (
+              <span
+                key={badge.label}
+                className="rounded-full bg-card/55 px-2.5 py-1 text-xs text-foreground/62 ring-1 ring-border"
+              >
+                {badge.label}
+              </span>
+            ))}
+          </div>
         </div>
-        <span className="text-sm text-accent font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-          View Project →
-        </span>
+
+        <ArrowUpRight
+          size={18}
+          className="mt-1 shrink-0 text-foreground/38 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+        />
       </div>
-    </motion.a>
+    </a>
   );
 }

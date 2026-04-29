@@ -1,14 +1,21 @@
 "use client";
+
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import { toast } from "sonner";
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
-const Contact = () => {
+interface ContactProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const Contact = ({ isOpen, onClose }: ContactProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSending, setIsSending] = useState(false);
 
@@ -25,7 +32,7 @@ const Contact = () => {
     const message = form["message"].value.trim();
     const honeypot = form["bot_field"].value;
 
-    if (honeypot) return; // spam
+    if (honeypot) return;
     if (!name || !email || !message) {
       toast.error("Please fill in all fields.");
       return;
@@ -40,6 +47,7 @@ const Contact = () => {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY);
       toast.success("Message sent successfully!");
       form.reset();
+      onClose();
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong. Try again later.");
@@ -49,67 +57,98 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="w-full mt-24 p-4 text-foreground">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="max-w-4xl w-full mx-auto"
-      >
-        <h2 className="text-3xl font-semibold text-center mb-6">
-          Let’s Connect
-        </h2>
-        <p className="text-accent text-center mb-8">
-          Fill out the form below to send me a message directly.
-        </p>
-
-        <form
-          ref={formRef}
-          onSubmit={sendEmail}
-          className="space-y-5 flex flex-col items-center justify-center bg-card p-6 rounded-xl shadow"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-[80] flex items-center justify-center px-4 py-8 text-foreground"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="contact-title"
         >
-          <input
-            type="text"
-            name="bot_field"
-            className="hidden"
-            autoComplete="off"
-            tabIndex={-1}
-          />
-          <input
-            name="user_name"
-            type="text"
-            placeholder="Your Name"
-            required
-            className="w-full px-4 py-2 rounded border border-border bg-input text-foreground"
-          />
-
-          <input
-            name="user_email"
-            type="email"
-            placeholder="Your Email"
-            required
-            className="w-full px-4 py-2 rounded border border-border bg-input text-foreground"
-          />
-
-          <textarea
-            name="message"
-            rows={6}
-            placeholder="Your Message"
-            required
-            className="w-full px-4 py-2 rounded border border-border bg-input text-foreground resize-none"
-          />
-
           <button
-            type="submit"
-            disabled={isSending}
-            className="btn-primary max-w-lg mx-auto w-full py-2 rounded text-sm align-center font-medium"
+            type="button"
+            aria-label="Close contact form"
+            className="absolute inset-0 bg-background/70 backdrop-blur-md"
+            onClick={onClose}
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 18, scale: 0.98 }}
+            transition={{ duration: 0.25 }}
+            className="relative z-10 w-full max-w-xl rounded-2xl border border-border bg-card/95 p-5 shadow-2xl"
           >
-            {isSending ? "Sending..." : "Send Message"}
-          </button>
-        </form>
-      </motion.div>
-    </section>
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <h2 id="contact-title" className="text-2xl font-semibold">
+                  Let&apos;s Connect
+                </h2>
+                <p className="mt-1 text-sm text-accent">
+                  Send me a message directly.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-full border border-border p-2 text-foreground transition hover:border-accent hover:text-accent"
+                aria-label="Close contact form"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form
+              ref={formRef}
+              onSubmit={sendEmail}
+              className="space-y-4 flex flex-col items-center justify-center"
+            >
+              <input
+                type="text"
+                name="bot_field"
+                className="hidden"
+                autoComplete="off"
+                tabIndex={-1}
+              />
+              <input
+                name="user_name"
+                type="text"
+                placeholder="Your Name"
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground outline-none transition focus:border-accent"
+              />
+
+              <input
+                name="user_email"
+                type="email"
+                placeholder="Your Email"
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground outline-none transition focus:border-accent"
+              />
+
+              <textarea
+                name="message"
+                rows={6}
+                placeholder="Your Message"
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground outline-none transition resize-none focus:border-accent"
+              />
+
+              <button
+                type="submit"
+                disabled={isSending}
+                className="btn-primary max-w-lg mx-auto w-full py-3 rounded-lg text-sm align-center font-medium disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isSending ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
