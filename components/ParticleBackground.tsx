@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
@@ -8,10 +9,23 @@ import { useTheme } from "next-themes";
 export default function ParticleBackground() {
   const [init, setInit] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    updateMotionPreference();
+    mediaQuery.addEventListener("change", updateMotionPreference);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMotionPreference);
+    };
   }, []);
 
   useEffect(() => {
@@ -29,7 +43,7 @@ export default function ParticleBackground() {
       fullScreen: { enable: true, zIndex: 0 },
       particles: {
         number: {
-          value: 95,
+          value: prefersReducedMotion ? 36 : 95,
           density: {
             enable: true,
             area: 900,
@@ -38,7 +52,7 @@ export default function ParticleBackground() {
         color: { value: color },
         size: { value: { min: 1, max: 2.6 } },
         move: {
-          enable: true,
+          enable: !prefersReducedMotion,
           speed: 1.05,
           direction: "none",
           outModes: {
@@ -48,12 +62,14 @@ export default function ParticleBackground() {
         links: {
           enable: true,
           distance: 135,
-          opacity: 0.13,
+          opacity: prefersReducedMotion ? 0.08 : 0.13,
           color: color,
           width: 1,
         },
         opacity: {
-          value: { min: 0.12, max: 0.34 },
+          value: prefersReducedMotion
+            ? { min: 0.1, max: 0.18 }
+            : { min: 0.12, max: 0.34 },
         },
         shape: {
           type: "circle",
@@ -62,7 +78,7 @@ export default function ParticleBackground() {
       interactivity: {
         events: {
           onHover: {
-            enable: true,
+            enable: !prefersReducedMotion,
             mode: "repulse",
           },
         },
@@ -75,12 +91,16 @@ export default function ParticleBackground() {
       },
       detectRetina: true,
     }),
-    [color]
+    [color, prefersReducedMotion]
   );
 
   if (init && mounted) {
-    return <Particles id="tsparticles" options={options} />;
+    return (
+      <div aria-hidden="true">
+        <Particles id="tsparticles" options={options} />
+      </div>
+    );
   }
 
-  return <></>;
+  return null;
 }

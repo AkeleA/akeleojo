@@ -55,8 +55,11 @@ const Projects = () => {
     <section
       id="projects"
       className="w-full py-4 space-y-4 text-foreground"
+      aria-labelledby="projects-heading"
     >
-      <h2 className="text-xl font-semibold text-left">Projects</h2>
+      <h2 id="projects-heading" className="text-xl font-semibold text-left">
+        Projects
+      </h2>
       <div className="w-full mx-auto">
         {projects.map((p) => (
           <ProjectCard

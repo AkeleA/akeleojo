@@ -30,7 +30,8 @@ export default function ProjectCard({
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block border-t border-border py-5 text-foreground transition last:border-b hover:border-accent"
+      aria-label={`${title} project, ${role ? `${role}, ` : ""}${description}. Opens in a new tab`}
+      className="group block border-t border-border py-5 text-foreground transition last:border-b hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-4 focus-visible:ring-offset-background"
     >
       <div className="flex items-start justify-between gap-5">
         <div className="min-w-0 space-y-2">
@@ -39,11 +40,11 @@ export default function ProjectCard({
               {title}
             </h3>
             <p className="mt-1 text-sm leading-6 text-foreground/68">
-              {role ? `${role} · ${description}` : description}
+              {role ? `${role} - ${description}` : description}
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" aria-label="Technologies used">
             {badges.map((badge) => (
               <span
                 key={badge.label}
@@ -57,6 +58,7 @@ export default function ProjectCard({
 
         <ArrowUpRight
           size={18}
+          aria-hidden="true"
           className="mt-1 shrink-0 text-foreground/38 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
         />
       </div>

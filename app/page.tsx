@@ -3,11 +3,11 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-foreground">
+    <div className="min-h-screen text-foreground">
       <div className="relative z-0">
         <PortfolioShell />
       </div>
       <Footer />
-    </main>
+    </div>
   );
 }
