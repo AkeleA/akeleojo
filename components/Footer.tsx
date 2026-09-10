@@ -1,9 +1,8 @@
 const Footer = () => {
   return (
-    <footer className="mt-16 py-5 text-center">
-      <p className="text-sm text-foreground/65">
-        Copyright 2025 Akeleojo Achor. Some not all rights reserved.
-      </p>
+    <footer className="site-footer">
+      <p>© {new Date().getFullYear()} Akeleojo Achor</p>
+      <nav aria-label="Footer navigation"><a href="#contact">Contact</a><a href="https://github.com/AkeleA" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/akeleojo-achor-1a8557172/" target="_blank" rel="noreferrer">LinkedIn</a></nav>
     </footer>
   );
 };

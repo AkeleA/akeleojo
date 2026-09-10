@@ -1,5 +1,16 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment variables
+
+Copy `.env.example` to `.env` and fill in the server-only EmailJS values. Create a
+[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/get-started/)
+widget for the deployed domain and add its site and secret keys as
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY`.
+
+The contact endpoint verifies Turnstile server-side, uses a honeypot, validates
+input lengths, and rate-limits repeated requests before calling EmailJS. Keep the
+EmailJS variables server-only; do not prefix them with `NEXT_PUBLIC_`.
+
 ## Getting Started
 
 First, run the development server:

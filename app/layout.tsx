@@ -3,7 +3,6 @@ import React from "react";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
-import ParticleBackground from "@/components/ParticleBackground";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 
@@ -24,12 +23,19 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Akeleojo Achor - Software Engineer & Frontend Dev",
+  title: "Akeleojo Achor — Software Engineer",
   description:
-    "Portfolio of Akeleojo Achor: Node.js, Next.js, Typescript developer.",
+    "Software engineer building accessible, dependable web products with React, Next.js, Node.js, and PostgreSQL.",
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+  },
   openGraph: {
-    title: "Akeleojo Achor - Frontend Developer",
-    description: "Check out my portfolio and projects",
+    title: "Akeleojo Achor — Software Engineer",
+    description: "Accessible, dependable web products built with care.",
     url: "https://akeleojo.dev",
     siteName: "Akeleojo Achor",
     locale: "en_US",
@@ -44,9 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`bg-background text-foreground ${inter.variable} ${outfit.variable} antialiased transition-colors duration-300`}
-      >
+      <body className={`${inter.variable} ${outfit.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -56,16 +60,13 @@ export default function RootLayout({
           <div className="min-h-screen">
             <a
               href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-background"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-60 focus:rounded-md focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:ring-2 focus:ring-(--ring) focus:ring-offset-2 focus:ring-offset-background"
             >
               Skip to main content
             </a>
-            <ParticleBackground />
             <Header />
             <Toaster richColors position="top-right" />
-            <main id="main-content" className="relative z-10 scroll-smooth">
-              {children}
-            </main>
+            <main id="main-content">{children}</main>
           </div>
         </ThemeProvider>
       </body>

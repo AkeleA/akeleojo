@@ -1,186 +1,67 @@
-"use client";
+import { ArrowDown, ArrowUpRight, Check } from "lucide-react";
+import Contact from "@/components/Contact";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { type KeyboardEvent, useState } from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import Blog from "@/components/Blog";
-import Projects from "@/components/Projects";
-
-type Tab = "about" | "blog";
-
-const tabs: { id: Tab; label: string }[] = [
-  { id: "about", label: "about" },
-  { id: "blog", label: "blog" },
+const projects = [
+  { number: "01", name: "Vitalenex", description: "An AI-assisted healthcare product designed to make medical access clearer and more direct.", role: "Lead Frontend Developer", link: "https://vitalenex.com", stack: ["Next.js", "TypeScript", "Tailwind CSS"] },
+  { number: "02", name: "Onyiisi", description: "A polished commerce experience for discovering and buying intricate jewellery online.", role: "Full-stack Developer", link: "https://onyiisi.com", stack: ["Next.js", "Node.js", "TypeScript", "Tailwind CSS"] },
+  { number: "03", name: "Theseus", description: "A fast URL shortener built around a straightforward experience and a modern edge stack.", role: "Full-stack Developer", link: "https://theseus-iota.vercel.app/", stack: ["Next.js", "Node.js", "TypeScript", "Tailwind CSS"] },
 ];
 
-const socialLinks = [
-  {
-    label: "GitHub",
-    href: "https://github.com/AkeleA",
-    Icon: FaGithub,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/akeleojo-achor-1a8557172/",
-    Icon: FaLinkedin,
-  },
-  // {
-  //   label: "Instagram",
-  //   href: "https://www.instagram.com/e.ne.ke.le/",
-  //   Icon: FaInstagram,
-  // },
+const capabilities = [
+  { title: "Frontend engineering", detail: "Accessible, responsive interfaces with React, Next.js, TypeScript, and thoughtful component systems." },
+  { title: "Backend & data", detail: "Product APIs and dependable data flows using Node.js and PostgreSQL." },
+  { title: "Production delivery", detail: "Three featured products across healthcare, commerce, and developer tooling, with attention to performance and security." },
 ];
-
-const AboutPanel = () => {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <section
-      className="space-y-10 py-5.5 text-foreground md:py-8"
-      aria-labelledby="intro-heading"
-    >
-      <motion.div
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.35 }}
-        className="space-y-4"
-      >
-        <p className="text-base font-medium text-accent-light">Hi, I&apos;m</p>
-        <div className="flex flex-col items-start justify-start space-y-8.5">
-          <h1
-            id="intro-heading"
-            className="text-4xl font-bold tracking-normal text-foreground md:text-6xl"
-          >
-            Akeleojo Achor
-          </h1>
-          <div className="flex">
-            <p className="text-xl font-semibold tracking-normal text-foreground/85 md:text-2xl">
-              Software Engineer
-            </p>
-          </div>
-        </div>
-
-        <p className="max-w-2xl text-sm leading-7 text-foreground/75">
-          My work spans fintech, healthcare, commerce, and developer tooling. I
-          have shipped payment integrations, real time applications, and
-          production systems where performance and correctness matter, mostly
-          with TypeScript, React, Next.js, Node.js, and PostgreSQL.
-          <br />
-          I focus on accessibility, security, and long term maintainability. I
-          care about systems that behave predictably under load and are
-          straightforward to reason about.
-          <br /> Outside of delivery, I try to solve problems and read up on new
-          technologies.
-        </p>
-
-        <nav className="flex items-center gap-4 pt-3" aria-label="Social links">
-          {socialLinks.map(({ label, href, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${label} profile, opens in a new tab`}
-              className="rounded-sm text-accent-light transition hover:text-accent hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--ring) focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-            >
-              <Icon size={23} aria-hidden="true" focusable="false" />
-            </a>
-          ))}
-        </nav>
-      </motion.div>
-
-      <Projects />
-    </section>
-  );
-};
 
 export default function PortfolioShell() {
-  const [activeTab, setActiveTab] = useState<Tab>("about");
-  const shouldReduceMotion = useReducedMotion();
-  const activeTabIndex = tabs.findIndex((tab) => tab.id === activeTab);
-
-  const focusTab = (index: number) => {
-    const nextTab = tabs[index];
-    setActiveTab(nextTab.id);
-    document.getElementById(`${nextTab.id}-tab`)?.focus();
-  };
-
-  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      focusTab((activeTabIndex + 1) % tabs.length);
-    }
-
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      focusTab((activeTabIndex - 1 + tabs.length) % tabs.length);
-    }
-
-    if (event.key === "Home") {
-      event.preventDefault();
-      focusTab(0);
-    }
-
-    if (event.key === "End") {
-      event.preventDefault();
-      focusTab(tabs.length - 1);
-    }
-  };
-
   return (
-    <section
-      className="relative mx-auto min-h-[calc(100vh-72px)] w-full max-w-2xl px-5 py-4.5 md:py-6.5"
-      aria-label="Portfolio content"
-    >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-20 h-105 rounded-full bg-background/55 blur-3xl"
-        aria-hidden="true"
-      />
-      <div className="relative z-10">
-        <nav
-          className="mb-2.5 flex items-center gap-5 text-sm font-medium"
-          aria-label="Portfolio sections"
-          role="tablist"
-        >
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              id={`${tab.id}-tab`}
-              type="button"
-              onClick={() => setActiveTab(tab.id)}
-              onKeyDown={handleTabKeyDown}
-              role="tab"
-              aria-selected={activeTab === tab.id}
-              aria-controls={`${tab.id}-panel`}
-              tabIndex={activeTab === tab.id ? 0 : -1}
-              className={`rounded-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--ring) focus-visible:ring-offset-4 focus-visible:ring-offset-background ${
-                activeTab === tab.id
-                  ? "text-accent"
-                  : "text-foreground/55 hover:text-foreground"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </nav>
+    <>
+      <section className="hero-shell" aria-labelledby="hero-title">
+        <p className="eyebrow">Software engineer · Lagos, Nigeria</p>
+        <h1 id="hero-title">Akeleojo Achor<span>I build web products that stay fast, clear, and dependable.</span></h1>
+        <p className="hero-copy">I help product teams turn complex requirements into accessible, production-ready experiences with React, Next.js, Node.js, and PostgreSQL.</p>
+        <div className="hero-actions">
+          <a className="button button-primary" href="#projects">See selected work <ArrowDown size={16} aria-hidden="true" /></a>
+          <a className="text-link" href="#contact">Start a conversation <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </div>
+      </section>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            id={`${activeTab}-panel`}
-            role="tabpanel"
-            aria-labelledby={`${activeTab}-tab`}
-            tabIndex={-1}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-          >
-            {activeTab === "about" && <AboutPanel />}
-            {activeTab === "blog" && <Blog />}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
+      <section id="projects" className="section" aria-labelledby="projects-title">
+        <div className="section-heading"><p className="eyebrow">Selected work</p><h2 id="projects-title">Products I&apos;ve helped ship</h2><p>Three examples of the range I bring to product teams.</p></div>
+        <div className="project-list">
+          {projects.map((project) => (
+            <a className="project-row" href={project.link} target="_blank" rel="noreferrer" key={project.name} aria-label={`${project.name}, ${project.role}. Opens in a new tab`}>
+              <span className="project-number">{project.number}</span>
+              <div className="project-copy">
+                <div className="project-title-line"><h3>{project.name}</h3><ArrowUpRight size={20} aria-hidden="true" /></div>
+                <p>{project.description}</p><strong>{project.role}</strong>
+                <ul aria-label={`${project.name} technologies`}>{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section id="skills" className="section" aria-labelledby="skills-title">
+        <div className="section-heading"><p className="eyebrow">Capabilities</p><h2 id="skills-title">What I bring to the build</h2></div>
+        <div className="capability-grid">
+          {capabilities.map((capability) => <article key={capability.title}><Check size={18} aria-hidden="true" /><h3>{capability.title}</h3><p>{capability.detail}</p></article>)}
+        </div>
+      </section>
+
+      <section id="about" className="section about" aria-labelledby="about-title">
+        <div className="section-heading"><p className="eyebrow">About</p><h2 id="about-title">I care about software people can trust.</h2></div>
+        <div className="about-copy">
+          <p>I&apos;m a software engineer working across frontend and backend systems. I&apos;ve built for healthcare, commerce, payments, real-time products, and developer tooling—places where correctness matters as much as the interface.</p>
+          <p>I like untangling difficult product problems, making sensible technical trade-offs, and leaving code easier to reason about than I found it. If your team values accessibility, security, and long-term maintainability, we&apos;ll work well together.</p>
+          <a href="/Akeleojo_Achor_Resume.pdf" target="_blank" rel="noreferrer" className="text-link">Read my résumé <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </div>
+      </section>
+
+      <section id="contact" className="section contact-section" aria-labelledby="contact-title">
+        <div className="section-heading"><p className="eyebrow">Contact</p><h2 id="contact-title">Have a product problem worth solving?</h2><p>Tell me what you&apos;re building and where you need help. I&apos;ll get back to you directly.</p><div className="contact-links" aria-label="Social profiles"><a href="https://github.com/AkeleA" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/akeleojo-achor-1a8557172/" target="_blank" rel="noreferrer">LinkedIn</a></div></div>
+        <Contact />
+      </section>
+    </>
   );
 }
