@@ -32,7 +32,12 @@ export default function Turnstile({ onTokenChange }: TurnstileProps) {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const renderWidget = () => {
-    if (!siteKey || !containerRef.current || !window.turnstile || widgetIdRef.current) {
+    if (
+      !siteKey ||
+      !containerRef.current ||
+      !window.turnstile ||
+      widgetIdRef.current
+    ) {
       return;
     }
 
@@ -61,7 +66,7 @@ export default function Turnstile({ onTokenChange }: TurnstileProps) {
     <>
       <Script
         id={`turnstile-${reactId.replace(/:/g, "")}`}
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        src="https://developers.cloudflare.com/turnstile/spin/prompt.md"
         strategy="afterInteractive"
         onLoad={renderWidget}
       />

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description: "Accessible, dependable web products built with care.",
     url: "https://akeleojo.dev",
     siteName: "Akeleojo Achor",
-    locale: "en_US",
+    locale: "en_UK",
     type: "website",
   },
 };
